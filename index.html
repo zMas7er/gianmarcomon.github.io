@@ -139,6 +139,9 @@
 </head>
 <body class="antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
 
+    <canvas id="network-canvas"></canvas>
+    <div class="fixed inset-0 bg-slate-950/70 z-[-1] pointer-events-none"></div>
+
     <!-- Navigation -->
     <nav class="fixed w-full z-50 top-0 glass-card border-b-0 border-slate-800/50 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -160,8 +163,6 @@
 
     <!-- 1. HERO SECTION -->
     <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <canvas id="network-canvas"></canvas>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/80 to-slate-950 z-0"></div>
         
         <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
             <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -319,7 +320,7 @@
     </section>
 
     <!-- 3. EDUCATION -->
-    <section id="education" class="py-24 bg-slate-900/30 relative border-t border-slate-900 scroll-mt-10">
+    <section id="education" class="py-24 relative border-t border-slate-900 scroll-mt-10">
         <div class="max-w-4xl mx-auto px-6">
             <div class="flex items-center gap-4 mb-16 reveal">
                 <i data-lucide="graduation-cap" class="w-8 h-8 text-cyan-400"></i>
@@ -534,7 +535,7 @@
     </section>
 
     <!-- 5. PROJECTS -->
-    <section id="projects" class="py-24 bg-slate-900/30 relative border-t border-slate-900 scroll-mt-10">
+    <section id="projects" class="py-24 relative border-t border-slate-900 scroll-mt-10">
         <div class="max-w-5xl mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-8 reveal mb-20">
                 
@@ -581,7 +582,7 @@
             </div>
 
     <!-- 7. CONTACT SECTION -->
-    <section id="contact" class="py-24 relative overflow-hidden border-t border-slate-900 bg-slate-950 scroll-mt-10">
+    <section id="contact" class="py-24 relative overflow-hidden border-t border-slate-900 scroll-mt-10">
         <!-- Abstract background elements -->
         <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
             <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-600 rounded-full mix-blend-screen filter blur-[100px] animate-pulse-slow"></div>
@@ -612,7 +613,7 @@
     </section>
 
     <!-- 8. FOOTER -->
-    <footer class="border-t border-slate-900 bg-slate-950 py-12">
+    <footer class="border-t border-slate-900 py-12">
         <div class="max-w-7xl mx-auto px-6 flex flex-col items-center gap-6 text-center">
             
             <div class="flex flex-col items-center gap-2">
@@ -671,7 +672,7 @@
 
         function resize() {
             width = canvas.width = window.innerWidth;
-            height = canvas.height = document.getElementById('hero').offsetHeight;
+            height = canvas.height = window.innerHeight;
         }
 
         window.addEventListener('resize', resize);
