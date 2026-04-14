@@ -144,10 +144,11 @@
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 top-0 glass-card border-b-0 border-slate-800/50 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-10">
             <a href="#hero" class="text-xl font-mono font-bold text-white tracking-tighter hover:text-cyan-400 transition-colors">
                 <span class="text-cyan-500">&gt;</span> gianmarco<span class="text-slate-500">_</span>
             </a>
+            
             <div class="hidden md:flex space-x-8 text-sm font-medium">
                 <a href="#about" class="nav-link text-slate-300 hover:text-cyan-400 transition-colors">About</a>
                 <a href="#education" class="nav-link text-slate-300 hover:text-cyan-400 transition-colors">Education</a>
@@ -155,11 +156,21 @@
                 <a href="#projects" class="nav-link text-slate-300 hover:text-cyan-400 transition-colors">Projects</a>
                 <a href="#contact" class="nav-link text-slate-300 hover:text-cyan-400 transition-colors">Contact</a>
             </div>
-            <button class="md:hidden text-slate-300 hover:text-white">
-                <i data-lucide="menu"></i>
+            
+            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-cyan-400 transition-colors">
+                <i data-lucide="menu" id="menu-icon"></i>
             </button>
         </div>
+
+        <div id="mobile-menu" class="absolute top-full left-0 w-full bg-slate-950/95 backdrop-blur-xl border-b border-slate-800/50 flex-col items-center py-8 space-y-8 opacity-0 pointer-events-none transition-opacity duration-300 hidden md:hidden shadow-2xl">
+            <a href="#about" class="mobile-nav-link text-slate-300 hover:text-cyan-400 transition-colors text-lg font-medium">About</a>
+            <a href="#education" class="mobile-nav-link text-slate-300 hover:text-cyan-400 transition-colors text-lg font-medium">Education</a>
+            <a href="#experience" class="mobile-nav-link text-slate-300 hover:text-cyan-400 transition-colors text-lg font-medium">Experience</a>
+            <a href="#projects" class="mobile-nav-link text-slate-300 hover:text-cyan-400 transition-colors text-lg font-medium">Projects</a>
+            <a href="#contact" class="mobile-nav-link text-slate-300 hover:text-cyan-400 transition-colors text-lg font-medium">Contact</a>
+        </div>
     </nav>
+
 
     <!-- 1. HERO SECTION -->
     <section id="hero" class="relative min-h-screen flex items-center justify-center pt-32 md:pt-20 overflow-hidden">
@@ -260,7 +271,7 @@
                     </p>
                     
                     <div class="pt-6 flex flex-wrap gap-4">
-                        <a href="#" class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-slate-800/40 border border-slate-700 hover:border-cyan-500 text-white font-medium transition-all duration-300 shadow-sm hover:bg-slate-800">
+                        <a href="CV_GianmarcoMontella.pdf" class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-slate-800/40 border border-slate-700 hover:border-cyan-500 text-white font-medium transition-all duration-300 shadow-sm hover:bg-slate-800">
                             <i data-lucide="download" class="w-5 h-5 mr-3 text-slate-400"></i> Download My CV
                         </a>
                     </div>
@@ -602,7 +613,7 @@
                     <i data-lucide="mail" class="w-5 h-5 mr-2"></i>
                     gianmarco3343@gmail.com
                 </button>
-                <a href="#" class="w-full sm:w-auto inline-flex justify-center items-center px-8 py-3.5 rounded-lg bg-transparent border border-slate-700 hover:border-cyan-500 text-slate-300 hover:text-white font-medium transition-all duration-300">
+                <a href="CV_GianmarcoMontella.pdf" class="w-full sm:w-auto inline-flex justify-center items-center px-8 py-3.5 rounded-lg bg-transparent border border-slate-700 hover:border-cyan-500 text-slate-300 hover:text-white font-medium transition-all duration-300">
                     <i data-lucide="download" class="w-5 h-5 mr-2"></i>
                     Download CV
                 </a>
@@ -848,6 +859,42 @@
             // Rimuove l'area temporanea
             document.body.removeChild(textArea);
         }
+
+// --- 5. Mobile Menu Logic ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                setTimeout(() => {
+                    mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                    mobileMenu.classList.add('flex');
+                }, 10);
+                menuIcon.setAttribute('data-lucide', 'x'); // Trasforma in X
+            } else {
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                }, 300);
+                menuIcon.setAttribute('data-lucide', 'menu'); // Torna panino
+            }
+            lucide.createIcons(); // Ricarica l'icona aggiornata
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+
+        // Chiudi la tendina automaticamente quando si clicca su un link
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMenuOpen) toggleMenu();
+            });
+        });
 
     </script>
 </body>
