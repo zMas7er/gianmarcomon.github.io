@@ -157,8 +157,9 @@
                 <a href="#contact" class="nav-link text-slate-300 hover:text-cyan-400 transition-colors">Contact</a>
             </div>
             
-            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-cyan-400 transition-colors">
-                <i data-lucide="menu" id="menu-icon"></i>
+            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-cyan-400 transition-colors relative w-6 h-6">
+                <i data-lucide="menu" id="icon-menu" class="absolute inset-0 transition-opacity duration-300"></i>
+                <i data-lucide="x" id="icon-close" class="absolute inset-0 transition-opacity duration-300 opacity-0 pointer-events-none"></i>
             </button>
         </div>
 
@@ -863,28 +864,36 @@
 // --- 5. Mobile Menu Logic ---
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
+        const iconMenu = document.getElementById('icon-menu');
+        const iconClose = document.getElementById('icon-close');
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         let isMenuOpen = false;
 
         function toggleMenu() {
             isMenuOpen = !isMenuOpen;
             if (isMenuOpen) {
+                // Mostra la tendina
                 mobileMenu.classList.remove('hidden');
                 setTimeout(() => {
                     mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
                     mobileMenu.classList.add('flex');
                 }, 10);
-                menuIcon.setAttribute('data-lucide', 'x'); // Trasforma in X
+                
+                // Nascondi Menu, Mostra X
+                iconMenu.classList.add('opacity-0', 'pointer-events-none');
+                iconClose.classList.remove('opacity-0', 'pointer-events-none');
             } else {
+                // Nascondi la tendina
                 mobileMenu.classList.add('opacity-0', 'pointer-events-none');
                 setTimeout(() => {
                     mobileMenu.classList.add('hidden');
                     mobileMenu.classList.remove('flex');
                 }, 300);
-                menuIcon.setAttribute('data-lucide', 'menu'); // Torna panino
+                
+                // Mostra Menu, Nascondi X
+                iconClose.classList.add('opacity-0', 'pointer-events-none');
+                iconMenu.classList.remove('opacity-0', 'pointer-events-none');
             }
-            lucide.createIcons(); // Ricarica l'icona aggiornata
         }
 
         mobileMenuBtn.addEventListener('click', toggleMenu);
